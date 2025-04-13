@@ -1,33 +1,12 @@
 services:
-  db:
-    image: postgres:17
-    container_name: db
-    networks:
-      - system
-    environment:
-      POSTGRES_DB: dbpostgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pass
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     image: backend:latest
     container_name: backend
     ports:
-      - "3000:3000"  
-    networks:
-      - system
+      - "3000:3000"
     volumes:
       - backend-node-modules:/usr/src/app/node_modules
     environment:
@@ -43,14 +22,16 @@ services:
       JWT_EXP: 1d
       SECRET_SALT: M5aQ8X7zN1vT4L2pJH9oYkDCGBV0FsKWBZYR3EI6RJmsQoH57
       SALT_ROUNDS: 10
-    depends_on:
-      db:
-        condition: service_healthy
+   
+    networks:
+      - system
+
+volumes:
+  backend-node-modules:
 
 networks:
   system:
-    driver: bridge
+    external: true
 
-volumes:
-  backend-node-modules: {}
-  postgres_data: {}
+
+
