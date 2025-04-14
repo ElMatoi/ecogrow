@@ -51,7 +51,7 @@ services:
 
   scripts:
     build:
-      context: ./scripts
+      context: ./backend/scripts
       dockerfile: Dockerfile
     container_name: script-mongo
     ports:
