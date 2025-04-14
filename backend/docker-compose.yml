@@ -22,16 +22,23 @@ services:
       JWT_EXP: 1d
       SECRET_SALT: M5aQ8X7zN1vT4L2pJH9oYkDCGBV0FsKWBZYR3EI6RJmsQoH57
       SALT_ROUNDS: 10
-   
+    networks:
+      - system
+      
+ 
+  scripts:
+    build:
+      context: ./scripts
+    container_name: script-mongo
+    ports:
+      - "8000:8000"
     networks:
       - system
 
+      
 volumes:
   backend-node-modules:
-
+  
 networks:
   system:
     external: true
-
-
-

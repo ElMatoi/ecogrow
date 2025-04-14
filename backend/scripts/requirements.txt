@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+graphene
+graphene-mongo
+mongoengine
+pydantic
+starlette-graphene3

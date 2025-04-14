@@ -9,7 +9,7 @@ import {
     Param,
   } from '@nestjs/common';
 import { UserService } from './user.service';
-import { LogsInterceptor } from 'interceptors/logs.interceptors';
+import { LogsInterceptor } from 'src/interceptors/logs.interceptors';
 import { JwtAuthGuard } from 'src/guards/auth.guard';
 import { ResponseMessage } from "src/types/response";
   

@@ -11,7 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { JwtAuthGuard, JWTRequest } from '../../guards/auth.guard';
 import { AccessTokenResponse } from '../../types/auth';
-import { LogsInterceptor } from 'interceptors/logs.interceptors';
+import { LogsInterceptor } from 'src/interceptors/logs.interceptors';
 import { ResponseMessage } from '../../types/response';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
