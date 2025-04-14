@@ -1,0 +1,68 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    image: backend:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - backend-node-modules:/usr/src/app/node_modules
+    environment:
+      APP_PORT: 3000
+      DATABASE_TYPE: postgres
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: dbpostgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: pass
+      JWT_SECRET: X8vT9Lm2zP4Qr7YkJH5oNCDwGbV1As0XFKMBZYpW3EI6RJmsQo
+      JWT_ALG: HS256
+      JWT_EXP: 1d
+      SECRET_SALT: M5aQ8X7zN1vT4L2pJH9oYkDCGBV0FsKWBZYR3EI6RJmsQoH57
+      SALT_ROUNDS: 10
+    networks:
+      - system
+
+  db:
+    image: postgres:17
+    container_name: postgres
+    environment:
+      POSTGRES_DB: dbpostgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - system
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - system
+
+  scripts:
+    build:
+      context: ./scripts
+      dockerfile: Dockerfile
+    container_name: script-mongo
+    ports:
+      - "8000:8000"
+    networks:
+      - system
+
+volumes:
+  postgres_data:
+  mongo_data:
+  backend-node-modules:
+
+networks:
+  system:
