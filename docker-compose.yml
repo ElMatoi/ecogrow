@@ -1,4 +1,25 @@
 services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - system
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: app_mongo
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app  
+    networks:
+      - system
   backend:
     build:
       context: ./backend
@@ -39,30 +60,12 @@ services:
     networks:
       - system
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - system
-
-  scripts:
-    build:
-      context: ./backend/scripts
-      dockerfile: Dockerfile
-    container_name: script-mongo
-    ports:
-      - "8000:8000"
-    networks:
-      - system
 
 volumes:
   postgres_data:
   mongo_data:
   backend-node-modules:
+ 
 
 networks:
   system:
