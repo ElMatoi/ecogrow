@@ -8,6 +8,9 @@ import { UserService } from '../user/user.service';
 import { UserModule } from '../user/user.module';
 import { JwtStrategy } from '../../guards/jwt.strategy';
 import { User } from '../user/entities/user.entity';
+import { Machine } from '../machine/entities/machine.entity';
+import { MachineModule } from '../machine/machine.module';
+import { MachineService } from '../machine/machine.service';
 @Module({
   imports: [
     JwtModule.register({
@@ -18,11 +21,12 @@ import { User } from '../user/entities/user.entity';
         algorithm: getEnvValue('JWT_ALG'),
       },
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User,Machine]),
     forwardRef(() => UserModule),
+    forwardRef(() => MachineModule),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService, JwtStrategy],
+  providers: [AuthService, UserService, JwtStrategy,MachineService],
   exports: [AuthService]
 })
 export class AuthModule {}
