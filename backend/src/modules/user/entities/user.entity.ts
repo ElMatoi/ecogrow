@@ -1,10 +1,13 @@
 import {
   Column,
-  CreateDateColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
-  Entity
+  Entity,
+  JoinColumn,
+  CreateDateColumn
   
 } from "typeorm";
+import { Machine } from "src/modules/machine/entities/machine.entity";
 
 @Entity() 
 export class User {
@@ -35,8 +38,16 @@ export class User {
   @CreateDateColumn()
   createdAt!: Date;
 
-@Column({ nullable: true })
+ @Column({ nullable: true })
   token?: string;
+
+  @OneToOne(() => Machine, { nullable: true })
+  @JoinColumn()
+  machine?: Machine;
 }
+
+
+
+
 
   

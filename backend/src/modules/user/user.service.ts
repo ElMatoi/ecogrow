@@ -6,12 +6,14 @@ import { User
 import { SuccessHTTPAnswer,ThrowHTTPException } from "src/utils/http.service";
 import { UserRole } from "src/enum/userRole";
 import { ResponseMessage } from "src/types/response";
+import { MachineService } from "../machine/machine.service";
 
 @Injectable ()
 export class UserService{
     constructor (
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        private readonly machineService : MachineService
 
     ){}
 
@@ -99,4 +101,43 @@ async createUser(data: {
     return await this.findUserByRut(rut);
   }
 
+ public async findUserById(id: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id, status: true} });
+
+    if (!user) {
+      ThrowHTTPException(
+        'El usuario no existe',
+        ['rut'],
+        'NOT_FOUND',
+        'Not Found',
+      );
+    } return user;
+  }
+
+  async linkMachineUser(data: {
+    userid:string,
+    machineid:string
+  }): Promise<ResponseMessage>{
+    const user = await this.findUserById(data.userid)
+    if (!user) {
+      ThrowHTTPException(
+        'El usuario no existe',
+        ['rut'],
+        'NOT_FOUND',
+        'Not Found',
+      );
+    }
+    const machine = await this.machineService.getMachineById(data.machineid)
+     if (!machine) {
+      ThrowHTTPException(
+        'machine not found',
+        ['id'],
+        'NOT_FOUND',
+        'Not Found',
+      );
+    }
+    user.machine=machine
+    return SuccessHTTPAnswer("Linked machine - user", undefined);
+
+ }
 }
