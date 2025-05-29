@@ -27,11 +27,15 @@ El prototipo actual de **EcoGrow** está compuesto por varios módulos que traba
 - **Backend principal**  
   Desarrollado con **NestJS**, se encarga de la gestión de usuarios y máquinas. Permite enlazar cada usuario con su respectiva unidad de cultivo, gestionando autenticación, permisos y relaciones de control.
 
-- **Servicio IoT (mini backend)**  
+- **Servicio IoT **  
   Implementado con **FastAPI** y **MongoDB**, este microservicio recibe y almacena los datos provenientes de los sensores IoT en tiempo real. Además, expone una API que permite consultar dichos datos desde el frontend para su visualización y análisis.
 
 - **Frontend**  
   Construido con **React**, proporciona una interfaz moderna y responsiva para que los usuarios puedan visualizar sus cultivos, monitorear el estado de los sensores y gestionar su sistema de hidroponía de manera intuitiva.
+
+- **Infraestructura**  
+  Servicios levantado con **Docker**, todos los servicios se levantan usando un docker compose.****
+  
 
 
 
