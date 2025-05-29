@@ -26,6 +26,19 @@ Ideal para
     Hogares urbanos que buscan una solución eficiente, ecológica y decorativa.
 
     Productores o aficionados que deseen automatizar y monitorear sus cultivos fácilmente.
+    
+Tecnologías utilizadas
+
+El prototipo actual de EcoGrow está compuesto por varios módulos que trabajan en conjunto para gestionar tanto la interacción del usuario como la recepción de datos en tiempo real desde sensores IoT:
+
+    Backend principal:
+    Desarrollado con NestJS, se encarga de la gestión de usuarios y máquinas. Permite enlazar cada usuario con su respectiva unidad de cultivo, gestionando autenticación, permisos y relaciones de control.
+
+    Servicio IoT (mini backend):
+    Implementado con FastAPI y MongoDB, este microservicio recibe y almacena los datos provenientes de los sensores IoT en tiempo real. Además, expone una API que permite consultar dichos datos desde el frontend para su visualización y análisis.
+
+    Frontend:
+    Construido con React, proporciona una interfaz moderna y responsiva para que los usuarios puedan visualizar sus cultivos, monitorear el estado de los sensores, y gestionar su sistema de hidroponía de manera intuitiva.
 
 
 
