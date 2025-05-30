@@ -69,14 +69,14 @@ async register(
         }
 
 async login( loginDto: LoginDto):Promise<ResponseMessage<AccessTokenResponse>>{
-    const {rut,password}= loginDto;
-    const user= await this.userService.findUserByRut(rut);
+    const {email,password}= loginDto;
+    const user= await this.userService.findUserByEmail(email);
     if(!user) {
         return ThrowHTTPException(
           'Usuario no encontrado',
-          ['rut'],
+          ['email'],
           'NOT_FOUND',
-          'No se encontró un usuario con el rut proporcionado',
+          'No se encontró un usuario con el email proporcionado',
         );
       }
       const comparePass = await this.compareHash(password, user.password);

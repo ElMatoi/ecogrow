@@ -50,9 +50,21 @@ async createUser(data: {
 
     return user;
   }
+  public async getIdeUser (id:string):Promise<ResponseMessage<User>>{
+    const user = await this.userRepository.findOne({where: {id,status:true}})
+    if (!user){
+      ThrowHTTPException(
+        'User not found',
+        ['Id'],
+        'NOT_FOUND',
+        'Not found',
+      );
+    }
+    return SuccessHTTPAnswer('Retrieved data user',user)
+  }
 
   public async getUserByRut (rut:string): Promise<User>{
-    const user = await this.userRepository.findOne({ where: { rut , status: false} });
+    const user = await this.userRepository.findOne({ where: { rut , status: true} });
     if (!user) {
       ThrowHTTPException(
         'El usuario no existe',
